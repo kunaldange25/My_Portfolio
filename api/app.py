@@ -12,7 +12,7 @@ import openai
 load_dotenv()
 
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder="../public/static", template_folder="../public")
 CORS(app)
 
 
