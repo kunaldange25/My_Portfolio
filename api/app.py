@@ -7,7 +7,7 @@ from flask import Flask, request, jsonify
 from flask_cors import CORS
 import openai
 
-app = Flask(_name_)
+app = Flask(__name__)
 CORS(app)
 
 GMAIL_USER = os.getenv('GMAIL_USER')
