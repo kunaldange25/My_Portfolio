@@ -8,10 +8,6 @@
     {
       "src": "public/**",
       "use": "@vercel/static"
-    },
-    {
-      "src": "templates/**",
-      "use": "@vercel/static"
     }
   ],
   "routes": [
@@ -24,8 +20,8 @@
       "dest": "/api/app.py"
     },
     {
-      "src": "/",
-      "dest": "/templates/index1.html"
+      "src": "/(.*)",
+      "dest": "/public/$1"
     }
   ]
 }
