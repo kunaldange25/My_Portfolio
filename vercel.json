@@ -3,12 +3,7 @@
   "builds": [
     {
       "src": "api/app.py",
-      "use": "@vercel/python",
-      "config": {
-        "maxLambdaSize": "15mb",
-        "runtime": "python3.9",
-        "includeFiles": "public/**"
-      }
+      "use": "@vercel/python"
     },
     {
       "src": "public/**",
@@ -18,16 +13,15 @@
   "routes": [
     {
       "src": "/static/(.*)",
-      "dest": "public/static/$1"
+      "dest": "/public/static/$1"
     },
     {
-      "src": "/send_message",
-      "dest": "api/app.py",
-      "methods": ["POST"]
+      "src": "/api/(.*)",
+      "dest": "/api/app.py"
     },
     {
       "src": "/(.*)",
-      "dest": "api/app.y"
+      "dest": "/public/$1"
     }
   ]
 }
