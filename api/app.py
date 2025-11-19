@@ -3,36 +3,27 @@ import smtplib
 import email.utils
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
-from flask import Flask, request, jsonify, render_template
+from flask import Flask, request, jsonify
 from flask_cors import CORS
-from dotenv import load_dotenv
 import openai
 
-
-load_dotenv()
-
-
-app = Flask(__name__, static_folder="../public/static", template_folder="../public")
+app = Flask(_name_)
 CORS(app)
-
 
 GMAIL_USER = os.getenv('GMAIL_USER')
 GMAIL_APP_PASSWORD = os.getenv('GMAIL_APP_PASSWORD')
 OPENAI_API_KEY = os.getenv('OPENAI_API_KEY')
 
-
 email_count = 0
 MAX_EMAILS_PER_DAY = 50
-
 
 if OPENAI_API_KEY:
     openai.api_key = OPENAI_API_KEY
 
-
-@app.route('/')
-def home():
-    return render_template('index.html')
-
+# Remove the home route since Vercel will serve static files
+# @app.route('/')
+# def home():
+#     return render_template('index1.html')
 
 @app.route('/api/send-message', methods=['POST'])
 def send_message():
@@ -100,7 +91,6 @@ def send_message():
             'message': 'An error occurred while sending your message. Please try again later.'
         }), 500
 
-
 @app.route('/api/chat', methods=['POST'])
 def chat():
     if not OPENAI_API_KEY:
@@ -165,13 +155,11 @@ def chat():
             'message': 'I apologize, but I\'m having trouble responding right now. Please try again later.'
         }), 500
 
-
 @app.route('/api/reset-email-count', methods=['POST'])
 def reset_email_count():
     global email_count
     email_count = 0
     return jsonify({'success': True, 'message': 'Email count reset.'})
-
 
 if __name__ == '__main__':
     app.run(debug=True)
